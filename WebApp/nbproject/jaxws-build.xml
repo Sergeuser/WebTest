@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+        *** GENERATED FROM jax-ws.xml - DO NOT EDIT !                             ***
+        *** TO MODIFY wsimport options USE Web Service node -> Edit WS Attributes ***
+        *** TO CHANGE TARGETS GENERATED TO jaxws-build.xml COPY THOSE             ***
+        *** TARGETS TO ../build.xml AND MODIFY THAT FILE INSTEAD                  ***
+
+        --><project xmlns:xalan="http://xml.apache.org/xslt" xmlns:webproject2="http://www.netbeans.org/ns/web-project/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <target name="wsgen-init" depends="init, -do-compile">
+        <mkdir dir="${build.generated.sources.dir}/jax-ws/resources/"/>
+        <mkdir dir="${build.classes.dir}"/>
+        <mkdir dir="${build.classes.dir}/META-INF"/>
+        <property name="j2ee.platform.wsgen.classpath" value="${libs.jaxws21.classpath}"/>
+        <taskdef name="wsgen" classname="com.sun.tools.ws.ant.WsGen">
+            <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsgen-AccountServiceImpl" depends="wsgen-init">
+        <copy todir="${build.classes.dir}/META-INF">
+            <fileset dir="${webinf.dir}" includes="wsit-ru.mycomp.ws.AccountServiceImpl.xml"/>
+        </copy>
+        <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="ru.mycomp.ws.AccountServiceImpl" xendorsed="true">
+            <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
+        </wsgen>
+    </target>
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <fail if="${wsimport.bad.version}" message="WsImport ant task defined in the classpath ${j2ee.platform.wsimport.classpath} has a serious bug. See http://wiki.netbeans.org/MetroIssue for details."/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <property name="j2ee.platform.wsimport.classpath" value="${libs.jaxws21.classpath}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${java.home}/../lib/tools.jar:${j2ee.platform.wsimport.classpath}:${javac.classpath}"/>
+        </taskdef>
+        <condition property="conf-dir" value="${conf.dir}/" else="">
+            <isset property="conf.dir"/>
+        </condition>
+    </target>
+    <target name="wsimport-client-accserv" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/accserv"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/accserv" destdir="${build.generated.dir}/jax-wsCache/accserv" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/accserv/wsdl/localhost_1233/wss/accserv.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:1233/wss/accserv?wsdl" xnocompile="true" xendorsed="true" package="ru.mycomp.client">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/accserv/wsdl/localhost_1233/wss/accserv.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/accserv"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/accserv">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-accserv" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ru/mycomp/client"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/accserv"/>
+    </target>
+    <target name="wsimport-client-AccountServiceImpl" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/AccountServiceImpl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AccountServiceImpl" destdir="${build.generated.dir}/jax-wsCache/AccountServiceImpl" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/AccountServiceImpl/wsdl/localhost_8080/WebApp/AccountServiceImpl.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:1233/WebApp/AccountServiceImpl?wsdl" xnocompile="true" xendorsed="true" package="ru.mycomp.ws_client">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/AccountServiceImpl/wsdl/localhost_8080/WebApp/AccountServiceImpl.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/AccountServiceImpl"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/AccountServiceImpl">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-AccountServiceImpl" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ru/mycomp/ws_client"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/AccountServiceImpl"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-accserv, wsimport-client-AccountServiceImpl"/>
+</project>
